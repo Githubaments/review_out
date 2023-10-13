@@ -20,27 +20,31 @@ gc = gspread.authorize(credentials)
 
 sheet = gc.open_by_key('1_doOck1fbnoIsvnVKjYLNWxcnDwk2IWpcXqyp4yuBPI').sheet1
 
-
-# Read the data from the sheet
-data = sheet.get_all_records()
+# Get data from column A (metrics) and column B (questions)
+metrics_column = sheet.col_values(1)  # Assumes metrics are in column A
+questions_column = sheet.col_values(2)  # Assumes questions are in column B
 
 # Create Dataframe
+data = {
+    'Metrics': metrics_column,
+    'Questions': questions_column
+}
+
 df = pd.DataFrame(data)
-
-
 
 def main():
     st.title("End of Day Review")
 
-    # List of metrics
-    metrics = ["Sleep", "Water", "Food", "Satiety", "Sun", "Nature", "Mood", "Social", "Productivity", "Learning"]
+    # List of metrics and questions
+    metrics = df['Metrics'].tolist()
+    questions = df['Questions'].tolist()
 
     # Dictionary to store scores for each metric
     scores = {}
 
     # Loop through each metric and create a radio button selection for scores 1-5
-    for metric in metrics:
-        score = st.radio(f"Rate your {metric} today:", [1, 2, 3, 4, 5],horizontal=True)
+    for metric, question in zip(metrics, questions):
+        score = st.radio(f"{question}", [1, 2, 3, 4, 5], horizontal=True)
         scores[metric] = score
 
     # Text input for Aspiration, Improvement, Realisation, and Gratitude
@@ -49,18 +53,15 @@ def main():
     goals = st.text_area("What are your goals for next week")
     aspiration = st.text_area("What are your aspirations for the future?")
     improvement = st.text_area("What could you have improved today?")
-    realisation = st.text_area("What did you realise today?")
+    realisation = st.text_area("What did you realize today?")
     gratitude = st.text_area("What are you grateful for today?")
-    comliments_given = st.text_area("Compliments recieved?")
-    comliments_recieved = st.text_area("Compliments given?")
-
-    
+    compliments_given = st.text_area("Compliments received?")
+    compliments_received = st.text_area("Compliments given?")
 
     # Creating a dictionary with data
     data = {
         'Date': datetime.now().strftime('%Y-%m-%d'),  # Putting date first
         **scores,  # Unpacking the scores dictionary
-        
         'Results': results,
         'Ideas': ideas,
         'Goals': goals,
@@ -68,10 +69,8 @@ def main():
         'Improvement': improvement,
         'Realisation': realisation,
         'Gratitude': gratitude,
-        'Comliments Given':comliments_given,
-        'Comliments Recieved':comliments_recieved
-
-        
+        'Compliments Given': compliments_given,
+        'Compliments Received': compliments_received
     }
 
     df = pd.DataFrame([data], columns=data.keys())  # Creating a single-row dataframe from the data
