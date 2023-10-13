@@ -18,7 +18,7 @@ gc = gspread.authorize(credentials)
 
 # Open the Google Sheet by name
 
-sheet = gc.open_by_key('1_doOck1fbnoIsvnVKjYLNWxcnDwk2IWpcXqyp4yuBPI').sheet1
+sheet = gc.open_by_key('1_doOck1fbnoIsvnVKjYLNWxcnDwk2IWpcXqyp4yuBPI').get_worksheet(1)
 
 # Get data from column A (metrics) and column B (questions)
 metrics_column = sheet.col_values(1)  # Assumes metrics are in column A
