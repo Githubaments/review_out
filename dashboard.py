@@ -30,9 +30,11 @@ data = {
     'Questions': questions_column
 }
 
-df
 
 df = pd.DataFrame(data)
+
+df
+
 
 def main():
     st.title("End of Day Review")
