@@ -51,33 +51,20 @@ if len(df) > 0:
         score = st.radio(f"{question}", [1, 2, 3, 4, 5], horizontal=True)
         scores[metric] = score
 
-    # Text input for Aspiration, Improvement, Realisation, and Gratitude
-    results = st.text_area("What are your results today?")
-    ideas = st.text_area("What are your ideas for tomorrow?")
-    goals = st.text_area("What are your goals for next week")
-    aspiration = st.text_area("What are your aspirations for the future?")
-    improvement = st.text_area("What could you have improved today?")
-    realisation = st.text_area("What did you realize today?")
-    gratitude = st.text_area("What are you grateful for today?")
-    compliments_given = st.text_area("Compliments received?")
-    compliments_received = st.text_area("Compliments given?")
+    # Loop through questions and create text input fields
+    text_inputs = {}
+    for i, question in enumerate(questions):
+        text_inputs[question] = st.text_area(f"{question}")
 
     # Creating a dictionary with data
     data = {
         'Date': datetime.now().strftime('%Y-%m-%d'),  # Putting date first
         **scores,  # Unpacking the scores dictionary
-        'Results': results,
-        'Ideas': ideas,
-        'Goals': goals,
-        'Aspiration': aspiration,
-        'Improvement': improvement,
-        'Realisation': realisation,
-        'Gratitude': gratitude,
-        'Compliments Given': compliments_given,
-        'Compliments Received': compliments_received
+        **text_inputs  # Unpacking the text input fields
     }
 
-    df = pd.DataFrame([data], columns=data.keys())  # Creating a single-row dataframe from the data
+    # Create a DataFrame with the collected data
+    result_df = pd.DataFrame([data])
 
     # Display the DataFrame on the Streamlit app
     st.write(df)
