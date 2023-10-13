@@ -6,7 +6,22 @@ import plotly.graph_objects as go
 from datetime import datetime
 from google.oauth2 import service_account
 
+# Define the expected password
+expected_password = st.secrets["your_password"]
 
+# Streamlit app title
+st.title("Password-Protected Streamlit App")
+
+# Password input field
+password = st.text_input("Enter Password:", type="password")
+
+# Check if the entered password matches the expected password
+if password == expected_password:
+    st.success("Access granted! You can now use the app.")
+    # Put your app content here
+else:
+    st.error("Access denied! Please enter the correct password.")
+    st.stop()
 
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
