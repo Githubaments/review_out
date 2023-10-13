@@ -69,6 +69,8 @@ if len(df) > 0:
     # Display the DataFrame on the Streamlit app
     st.write(result_df )
 
+    sheet = gc.open_by_key('1_doOck1fbnoIsvnVKjYLNWxcnDwk2IWpcXqyp4yuBPI').get_worksheet(0)
+    
     with st.form(key='my_form'):
         if st.form_submit_button(label="Submit"):
             try:
