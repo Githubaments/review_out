@@ -30,6 +30,8 @@ data = {
     'Questions': questions_column
 }
 
+df
+
 df = pd.DataFrame(data)
 
 def main():
