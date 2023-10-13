@@ -48,7 +48,7 @@ if len(df) > 0:
 
     # Loop through each metric and create a radio button selection for scores 1-5
     for metric, question in zip(metrics, questions):
-        score = st.radio(f"{question}", [1, 2, 3, 4, 5], horizontal=True)
+        score = st.radio(f"{metric}", [1, 2, 3, 4, 5], horizontal=True)
         scores[metric] = score
 
     # Loop through questions and create text input fields
