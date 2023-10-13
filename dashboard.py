@@ -33,10 +33,8 @@ data = {
 
 df = pd.DataFrame(data)
 
-df
+if len(df) > 0:
 
-
-def main():
     st.title("End of Day Review")
 
     # List of metrics and questions
@@ -104,9 +102,6 @@ def main():
     
             except Exception as e:
                 st.error(f"An error occurred: {e}")
-
-if __name__ == "__main__":
-    main()
 
 
 
