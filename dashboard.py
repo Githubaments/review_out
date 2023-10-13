@@ -67,7 +67,7 @@ if len(df) > 0:
     result_df = pd.DataFrame([data])
 
     # Display the DataFrame on the Streamlit app
-    st.write(df)
+    st.write(result_df )
 
     with st.form(key='my_form'):
         if st.form_submit_button(label="Submit"):
@@ -82,10 +82,10 @@ if len(df) > 0:
                 # Append the data
                 if num_rows == 0:
                     # If the sheet is empty, also include the headers
-                    sheet.update(start_cell, [df.columns.values.tolist()] + df.values.tolist())
+                    sheet.update(start_cell, [result_df .columns.values.tolist()] + result_df .values.tolist())
                 else:
                     # Otherwise, just append the data rows
-                    sheet.update(start_cell, df.values.tolist())
+                    sheet.update(start_cell, result_df .values.tolist())
     
                     st.write(f"New data written to sheet")
     
