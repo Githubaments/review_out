@@ -33,6 +33,8 @@ data = {
 
 df = pd.DataFrame(data)
 
+df
+
 if len(df) > 0:
 
     st.title("End of Day Review")
