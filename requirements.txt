@@ -3,3 +3,4 @@ streamlit
 plotly_express
 pandas
 numpy
+gspread
